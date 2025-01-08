@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Kanallarini Analiz Qiluvchi Dastur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Telegram Kanallarini Analiz Qiluvchi Dastur</h1>
+        
+        <form id="channelForm">
+            <div class="form-group">
+                <label for="channelName">Kanal nomi:</label>
+                <input type="text" id="channelName" name="channelName" placeholder="Kanal nomini kiriting" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subscriberCount">Obunachilar soni:</label>
+                <input type="number" id="subscriberCount" name="subscriberCount" placeholder="Masalan, 5000" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dailyPosts">Kunlik postlar soni:</label>
+                <input type="number" id="dailyPosts" name="dailyPosts" placeholder="Masalan, 10" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="engagementRate">Faollik darajasi (%):</label>
+                <input type="number" id="engagementRate" name="engagementRate" placeholder="Masalan, 15" step="0.1" min="0" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="niche">Kanal yo'nalishi:</label>
+                <select id="niche" name="niche">
+                    <option value="texnologiya">Texnologiya</option>
+                    <option value="ta'lim">Ta'lim</option>
+                    <option value="biznes">Biznes</option>
+                    <option value="o'yin-kulgi">O'yin-kulgi</option>
+                    <option value="sport">Sport</option>
+                </select>
+            </div>
+
+            <button type="submit">Analiz qilish</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('channelForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const channelName = document.getElementById('channelName').value;
+            const subscriberCount = parseInt(document.getElementById('subscriberCount').value);
+            const dailyPosts = parseInt(document.getElementById('dailyPosts').value);
+            const engagementRate = parseFloat(document.getElementById('engagementRate').value);
+            const niche = document.getElementById('niche').value;
+
+            // Hisob-kitob
+            const activityScore = (subscriberCount * engagementRate / 100) + (dailyPosts * 10);
+
+            // Natijani chiqarish
+            document.getElementById('result').textContent = `Kanal: ${channelName}\nYo'nalish: ${niche}\nFaollik balli: ${activityScore.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>
